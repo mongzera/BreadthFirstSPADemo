@@ -20,7 +20,7 @@ public class Canvas extends JPanel {
     private int rows = 140;
     private int cols = 140;
     private final int gridSize = 5;
-    private final boolean isFast = true;
+    private final boolean isFast = false;
 
     private Node map[][] = new Node[rows][cols];
     private Queue<Node> nodeQueue = new Queue<>();
@@ -43,7 +43,7 @@ public class Canvas extends JPanel {
                 map[i][j] = new Node();
                 map[i][j].y = i;
                 map[i][j].x = j;
-                if(random.nextInt(15) > 10) map[i][j].isSolid = true;
+                if(random.nextInt(15) > 9) map[i][j].isSolid = true;
             }
         }
 
@@ -55,20 +55,12 @@ public class Canvas extends JPanel {
         fastSearch = isFast;
         State.startNode = null;
         State.endNode = null;
-
     }
 
     public Canvas(){
         reset();
 
         this.setFocusable(true);
-        //this.requestFocus();
-
-
-        //create walls
-//        for(int i = 0; i < 5; i++){
-//            map[i+7][3].isSolid = true;
-//        }
         this.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -212,10 +204,6 @@ public class Canvas extends JPanel {
     }
 
     public void calculatePath(Node current){
-//        g.setColor(Color.BLUE);
-//        g.fillRect(current.x * gridSize, current.y * gridSize, gridSize, gridSize);
-
-        //return;
         if(current.parent != null && current.parent != State.startNode){
             path.add(current.parent);
             calculatePath(current.parent);
@@ -289,10 +277,6 @@ public class Canvas extends JPanel {
             }
         }
 
-//        for(Node e : nodeQueue.objects){
-//
-//        }
-
         //if start node exists
         if (State.startNode != null) {
             g.setColor(Color.GREEN);
@@ -304,11 +288,5 @@ public class Canvas extends JPanel {
             g.setColor(Color.WHITE);
             g.fillRect(State.endX * gridSize, State.endY * gridSize, gridSize, gridSize);
         }
-//        for(int i = 0; i <= rows; i++){
-//            for(int j = 0; j <= cols; j++){
-//                if(map[i][j])
-//                g.drawLine(j * gridSize, 0, j * gridSize, cols * gridSize);
-//            }
-//        }
     }
 }

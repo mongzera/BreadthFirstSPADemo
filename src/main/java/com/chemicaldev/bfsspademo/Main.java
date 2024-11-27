@@ -25,14 +25,9 @@ public class Main {
         //game loop
         while(true){
             canvas.repaint();
-            try {
-                Thread.sleep((long) (1000f / 144));
-                long endTime = System.nanoTime();
-                DT = (endTime - startTime) / 1000000000F;
-                startTime = endTime;
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            long endTime = System.nanoTime();
+            DT = (endTime - startTime) / 1000000000F;
+            startTime = endTime;
         }
     }
     public static void main(String[] args) {

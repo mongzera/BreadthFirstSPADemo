@@ -7,7 +7,4 @@ public class State {
     public static int startX, startY;
     public static int endX, endY;
 
-
-
-    //print path
 }
