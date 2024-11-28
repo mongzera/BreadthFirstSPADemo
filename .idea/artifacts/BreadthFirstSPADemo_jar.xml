@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="BreadthFirstSPADemo:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BreadthFirstSPADemo_jar</output-path>
+    <root id="archive" name="BreadthFirstSPADemo.jar">
+      <element id="module-output" name="BreadthFirstSPADemo" />
+    </root>
+  </artifact>
+</component>

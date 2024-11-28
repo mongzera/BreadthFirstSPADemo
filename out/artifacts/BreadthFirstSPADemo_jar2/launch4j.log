@@ -1,0 +1,44 @@
+
+
+Version:	3.50
+CmdLine:	C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\bfsdemo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	jre
+Check launcher:	C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\jre\bin\javaw.exe (OK)
+Version string: 1.008.000_431 / 64-Bit (OK)
+Heap -Xms:	Requested 0 MB / 10%, Available: 754 MB, Heap size: 75 MB
+Heap -Xmx:	Requested 0 MB / 10%, Available: 754 MB, Heap size: 75 MB
+Main class:	com.chemicaldev.bfsspademo.Main
+Add classpath:	com.chemicaldev.bfsspademo.Main
+Launcher:	C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\jre\bin\javaw.exe
+Launcher args:	-Xms75m -Xmx75m -classpath "C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\bfsdemo.exe;com.chemicaldev.bfsspademo.Main" com.chemicaldev.bfsspademo.Main
+Args length:	195/32768 chars
+Exit code:	0
+
+
+Version:	3.50
+CmdLine:	C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\bfsdemo.exe --l4j-debug
+JNI:		No
+WOW64:		Yes
+Working dir:	C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\.
+Requires JDK:	No
+Requires 64-Bit: No
+Java min ver:	
+Java max ver:	
+JRE paths:	jre
+Check launcher:	C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\jre\bin\javaw.exe (OK)
+Version string: 1.008.000_431 / 64-Bit (OK)
+Heap -Xms:	Requested 0 MB / 10%, Available: 518 MB, Heap size: 51 MB
+Heap -Xmx:	Requested 0 MB / 10%, Available: 518 MB, Heap size: 51 MB
+Main class:	com.chemicaldev.bfsspademo.Main
+Add classpath:	com.chemicaldev.bfsspademo.Main
+Launcher:	C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\jre\bin\javaw.exe
+Launcher args:	-Xms51m -Xmx51m -classpath "C:\Users\gmtev\Documents\GitHub\BreadthFirstSPADemo\out\artifacts\BreadthFirstSPADemo_jar2\bfsdemo.exe;com.chemicaldev.bfsspademo.Main" com.chemicaldev.bfsspademo.Main
+Args length:	195/32768 chars
+Exit code:	0

@@ -16,10 +16,12 @@ public class Canvas extends JPanel {
         public boolean isSolid = false;
     }
 
+    public static int X_OFFSET = 0, Y_OFFSET = 0;
+
     public static int WIDTH, HEIGHT;
-    private int rows = 140;
-    private int cols = 140;
-    private final int gridSize = 5;
+    private int rows = 50;
+    private int cols = 50;
+    private int gridSize = 10;
     private final boolean isFast = false;
 
     private Node map[][] = new Node[rows][cols];
@@ -34,30 +36,8 @@ public class Canvas extends JPanel {
 
     private boolean fastSearch = false;
 
-    public void reset(){
-        map = new Node[rows][cols];
-
-        Random random = new Random();
-        for(int i = 0; i < rows; i++){
-            for(int j = 0; j < cols; j++){
-                map[i][j] = new Node();
-                map[i][j].y = i;
-                map[i][j].x = j;
-                if(random.nextInt(15) > 9) map[i][j].isSolid = true;
-            }
-        }
-
-        nodeQueue.clear();
-        path.clear();
-        foundPath = false;
-        addWallsToggle = false;
-        elapsedTime = 0f;
-        fastSearch = isFast;
-        State.startNode = null;
-        State.endNode = null;
-    }
-
     public Canvas(){
+        resize();
         reset();
 
         this.setFocusable(true);
@@ -65,20 +45,25 @@ public class Canvas extends JPanel {
             @Override
             public void keyTyped(KeyEvent e) {
 
-                if(e.getKeyChar() == 's') {
-                    addWallsToggle = !addWallsToggle;
-                    System.out.println("WALL TOGGLE: " + addWallsToggle);
-                }
-
-                if(e.getKeyChar() == 'r') {
-                    System.out.println("RESET!");
-                    reset();
-                }
 
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_S) {
+                    addWallsToggle = !addWallsToggle;
+                    System.out.println("WALL TOGGLE: " + addWallsToggle);
+                }
+
+                if(e.getKeyCode() == KeyEvent.VK_R) {
+                    System.out.println("RESET!");
+                    reset();
+                }
+
+                if(e.getKeyCode() == KeyEvent.VK_Q){
+                    System.out.println("QUICK SOLVE");
+                    fastSearch = !fastSearch;
+                }
 
             }
 
@@ -94,8 +79,8 @@ public class Canvas extends JPanel {
             public void mouseClicked(MouseEvent e) {
                 if(addWallsToggle) return;
 
-                int x = (int)Math.floor(e.getX() / gridSize);
-                int y = (int)Math.floor(e.getY() / gridSize);
+                int x = (int)Math.floor((e.getX() - X_OFFSET) / gridSize);
+                int y = (int)Math.floor((e.getY() - Y_OFFSET) / gridSize);
 
                 if(State.startNode == null){
                     System.out.println("SET START >> X: " + x + ", Y: " + y);
@@ -126,11 +111,11 @@ public class Canvas extends JPanel {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                int x = (int)Math.floor(e.getX() / gridSize);
-                int y = (int)Math.floor(e.getY() / gridSize);
+                int x = (int)Math.floor((e.getX() - X_OFFSET) / gridSize);
+                int y = (int)Math.floor((e.getY() - Y_OFFSET) / gridSize);
 
                 if(addWallsToggle){
-                    map[y][x].isSolid = true;
+                    map[y][x].isSolid = !map[y][x].isSolid;
 
                 }
             }
@@ -162,9 +147,10 @@ public class Canvas extends JPanel {
 
         //clear screen
         g.clearRect(0, 0, WIDTH, HEIGHT);
-
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, WIDTH, HEIGHT);
+
+        g.translate(X_OFFSET, Y_OFFSET);
 
         drawGrid(g);
 
@@ -201,6 +187,32 @@ public class Canvas extends JPanel {
             }
         }
 
+        g.translate(-X_OFFSET, -Y_OFFSET);
+
+        g.setColor(Color.WHITE);
+        g.drawString(" Created By: Gamat, Ethan Van", 10, 10);
+
+        g.drawString(" [S] 'Toggle add/remove walls'", 10, 30);
+        g.drawString(" [R] 'Reset Map'", 10, 45);
+        g.drawString(" [Q] 'Quick Solve'", 10, 60);
+
+        g.drawString(" ADD/REMOVE WALLS TOGGLE: [" + Boolean.toString(addWallsToggle).toUpperCase() + "]", 10, 90);
+        g.drawString(" QUICK SOLVE ENABLED: [" + Boolean.toString(fastSearch).toUpperCase() + "]", 10, 105);
+
+        //if is unable to find path
+        if(State.startNode != null && State.endNode != null){
+
+
+            if(!foundPath && nodeQueue.size() > 1){
+                g.drawString(" [FINDING PATH]", 10, 140);
+
+            }
+            if(!foundPath && nodeQueue.size() < 1) g.drawString(" [CANNOT FIND A PATH]", 10, 140);
+        }
+
+        if(foundPath){
+            g.drawString(" [FOUND A PATH]", 10, 140);
+        }
     }
 
     public void calculatePath(Node current){
@@ -288,5 +300,48 @@ public class Canvas extends JPanel {
             g.setColor(Color.WHITE);
             g.fillRect(State.endX * gridSize, State.endY * gridSize, gridSize, gridSize);
         }
+    }
+
+    public void resize(){
+        int axis;
+        int dim;
+
+        if(rows > cols){
+            axis = rows;
+        }else axis = cols;
+
+
+        if(Canvas.WIDTH > Canvas.HEIGHT){
+            dim = Canvas.HEIGHT;
+        }else dim = Canvas.WIDTH;
+
+        gridSize = dim / axis;
+
+        //calculate offset
+        X_OFFSET = (int) (Canvas.WIDTH * 0.5f - (gridSize * cols) * 0.5f);
+        Y_OFFSET = (int) (Canvas.HEIGHT * 0.5f - (gridSize * rows) * 0.5f);
+
+    }
+    public void reset(){
+        map = new Node[rows][cols];
+
+        Random random = new Random();
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < cols; j++){
+                map[i][j] = new Node();
+                map[i][j].y = i;
+                map[i][j].x = j;
+                if(random.nextInt(15) > 9) map[i][j].isSolid = true;
+            }
+        }
+
+        nodeQueue.clear();
+        path.clear();
+        foundPath = false;
+        addWallsToggle = false;
+        elapsedTime = 0f;
+        fastSearch = isFast;
+        State.startNode = null;
+        State.endNode = null;
     }
 }
